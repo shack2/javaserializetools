@@ -744,7 +744,7 @@ public class Main extends javax.swing.JFrame {
             }
         }
     private void jmenu_aboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmenu_aboutActionPerformed
-        JOptionPane.showMessageDialog(null, "本工具提供给安全测试人员，安全工程师，进行安全自查使用，请勿非法使用！\r\n版本：V 1.3 "+version+"\r\nBug反馈：1341413415@qq.com", "关于", JOptionPane.INFORMATION_MESSAGE); 
+        JOptionPane.showMessageDialog(null, "本工具提供给安全测试人员，安全工程师，进行安全自查使用，请勿非法使用！\r\n版本：V 1.4 "+version+"\r\nBug反馈：1341413415@qq.com", "关于", JOptionPane.INFORMATION_MESSAGE); 
     }//GEN-LAST:event_jmenu_aboutActionPerformed
 
     private void jmenu_checkUpdataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmenu_checkUpdataActionPerformed
