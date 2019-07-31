@@ -3,10 +3,26 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/G:/MyCoding/java/projects/netbean/Java反序列化漏洞利用工具/src/com/js/codeexec/paylaod/CVE_2017_10271.java</file>
-            <file>file:/G:/MyCoding/java/projects/netbean/Java反序列化漏洞利用工具/src/com/js/codeexec/frame/Main.java</file>
-            <file>file:/G:/MyCoding/java/projects/netbean/Java反序列化漏洞利用工具/src/com/js/codeexec/paylaod/BasePayload.java</file>
-            <file>file:/G:/MyCoding/java/projects/netbean/Java反序列化漏洞利用工具/src/com/js/codeexec/tools/HttpTool.java</file>
+            <file>file:/F:/MyCoding/java/projects/netbean/Java反序列化漏洞利用工具/src/com/js/codeexec/tools/Base64Utils.java</file>
+            <file>file:/F:/MyCoding/java/projects/netbean/Java反序列化漏洞利用工具/nbproject/build-impl.xml</file>
+            <file>file:/F:/MyCoding/java/projects/netbean/Java反序列化漏洞利用工具/src/com/js/codeexec/paylaod/BasePayload.java</file>
+            <file>file:/F:/MyCoding/java/projects/netbean/Java反序列化漏洞利用工具/src/weblogic10_path.txt</file>
+            <file>file:/F:/MyCoding/java/projects/netbean/Java反序列化漏洞利用工具/src/com/js/codeexec/paylaod/BatchCheck/BaseCheck.java</file>
+            <file>file:/F:/MyCoding/java/projects/netbean/Java反序列化漏洞利用工具/src/com/js/codeexec/paylaod/CVE_2017_10271_12.java</file>
+            <file>file:/F:/MyCoding/java/projects/netbean/Java反序列化漏洞利用工具/src/weblogic10_path_bypass.txt</file>
+            <file>file:/F:/MyCoding/java/projects/netbean/Java反序列化漏洞利用工具/src/weblogic10_file.txt</file>
+            <file>file:/F:/MyCoding/java/projects/netbean/Java反序列化漏洞利用工具/src/weblogic10_cmd_bypass.txt</file>
+            <file>file:/F:/MyCoding/java/projects/netbean/Java反序列化漏洞利用工具/src/com/js/codeexec/paylaod/CVE_2019_2725_10.java</file>
+            <file>file:/F:/MyCoding/java/projects/netbean/Java反序列化漏洞利用工具/src/weblogic10_file_bypass.txt</file>
+            <file>file:/F:/MyCoding/java/projects/netbean/Java反序列化漏洞利用工具/src/com/js/codeexec/paylaod/FileUtils.java</file>
+            <file>file:/F:/MyCoding/java/projects/netbean/Java反序列化漏洞利用工具/src/com/js/codeexec/paylaod/CVE_2019_2725_12.java</file>
+            <file>file:/F:/MyCoding/java/projects/netbean/Java反序列化漏洞利用工具/src/com/js/codeexec/paylaod/CVE_2019_2725_10_bypass.java</file>
+            <file>file:/F:/MyCoding/java/projects/netbean/Java反序列化漏洞利用工具/src/com/js/codeexec/frame/Main.java</file>
+            <file>file:/F:/MyCoding/java/projects/netbean/Java反序列化漏洞利用工具/src/com/js/codeexec/tools/HttpTool.java</file>
+            <file>file:/F:/MyCoding/java/projects/netbean/Java反序列化漏洞利用工具/src/com/js/codeexec/tools/Tools.java</file>
+            <file>file:/F:/MyCoding/java/projects/netbean/Java反序列化漏洞利用工具/src/weblogic10_cmd.txt</file>
+            <file>file:/F:/MyCoding/java/projects/netbean/Java反序列化漏洞利用工具/src/com/js/codeexec/paylaod/CVE_2017_10271_10.java</file>
+            <file>file:/F:/MyCoding/java/projects/netbean/Java反序列化漏洞利用工具/src/weblogic10_deleteFile_bypass.txt</file>
         </group>
     </open-files>
 </project-private>

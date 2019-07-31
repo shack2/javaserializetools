@@ -5,8 +5,9 @@
 package com.js.codeexec.frame;
 
 import com.js.codeexec.paylaod.BasePayload;
-import com.js.codeexec.paylaod.BatchCheck.CVE_2017_10271_Check;
-import com.js.codeexec.paylaod.CVE_2017_10271;
+import com.js.codeexec.paylaod.BatchCheck.BaseCheck;
+import com.js.codeexec.paylaod.CVE_2019_2725_12;
+import com.js.codeexec.tools.DiskUtil;
 import com.js.codeexec.tools.HttpTool;
 import com.js.codeexec.tools.Tools;
 import java.awt.EventQueue;
@@ -15,6 +16,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.net.URLEncoder;
 import java.util.HashSet;
 import java.util.Vector;
 
@@ -41,6 +43,7 @@ public class Main extends javax.swing.JFrame {
     public static AtomicInteger count = new AtomicInteger(0);//线程安全的计数变量
     private SwingWorker batch_startWork=null;
     private SwingWorker batch_statusWork=null;
+
     /**
      * Creates new form Main
      */
@@ -122,7 +125,6 @@ public class Main extends javax.swing.JFrame {
         jlabel_check_status = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jlable_useTime = new javax.swing.JLabel();
-        jcombox_server = new javax.swing.JComboBox<>();
         jbtn_clearLog = new javax.swing.JButton();
         jcombox_vuls = new javax.swing.JComboBox<>();
         jScrollPane6 = new javax.swing.JScrollPane();
@@ -153,7 +155,7 @@ public class Main extends javax.swing.JFrame {
         jPopupMenu1.add(jmenu_c_del_select_rows);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Java反序列化漏洞利用工具V1.0 by shack2");
+        setTitle("Java反序列化漏洞利用工具V1.4 by shack2");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setName("mainFrame"); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -176,11 +178,11 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        lbl_server.setText("Web服务器：");
+        lbl_server.setText("选择漏洞：");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jtxtp_info.setText("2017-12-30：\n添加 weblogic xml反序列化漏洞 CVE-2017-10271");
+        jtxtp_info.setText("2017-12-30：V1.0\n添加 weblogic xml反序列化漏洞 CVE-2017-10271\n\nV1.1\n修复CVE-2017-10271只能测试Weblogic10.*版本的问题。\n增加CNVD-C-2019-48814/CVE-2019-2725 Weblogic 10.*,Weblogic 12.*的支持。\n\nV1.2\n修复CNVD-C-2019-48814/CVE-2019-2725 在Weblogic 10下误报的问题。\n\n2019-06-17：V1.3\n优化EXP，验证完删除验证生成的文件，服务器不留文件。\n增加CNVD-C-2019-48814/CVE-2019-2725，在Weblogic 10下绕过利用方法。\n\n2019-07-31：V1.4\n修复CVE-2017-10271无法验证的漏洞的bug。");
         jScrollPane2.setViewportView(jtxtp_info);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -189,7 +191,7 @@ public class Main extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 816, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 819, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -294,7 +296,7 @@ public class Main extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jtxt_filepath, javax.swing.GroupLayout.DEFAULT_SIZE, 568, Short.MAX_VALUE)
+                        .addComponent(jtxt_filepath, javax.swing.GroupLayout.DEFAULT_SIZE, 571, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jcheckBox_use_user_path)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -396,7 +398,7 @@ public class Main extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jtxt_batch_chek_path, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
+                .addComponent(jtxt_batch_chek_path, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jbtn_batch_check_import)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -436,8 +438,6 @@ public class Main extends javax.swing.JFrame {
 
         jTabbedPane2.addTab("批量检查", jPanel4);
 
-        jcombox_server.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Weblogic" }));
-
         jbtn_clearLog.setText("清空日志");
         jbtn_clearLog.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -445,7 +445,7 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        jcombox_vuls.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CVE-2017-10271 XMLDecoder反序列化漏洞" }));
+        jcombox_vuls.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CVE-2017-10271 Weblogic10 XMLDecoder反序列化漏洞", "CVE-2017-10271 Weblogic12 XMLDecoder反序列化漏洞", "CVE-2019-2725 Weblogic12 wls9-async反序列化", "CVE-2019-2725 Weblogic10 wls9-async反序列化", "CVE-2019-2725-Bypass Weblogic10 wls9-async反序列化" }));
 
         jtxt_log.setColumns(20);
         jtxt_log.setFont(new java.awt.Font("宋体", 0, 12)); // NOI18N
@@ -503,13 +503,11 @@ public class Main extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lbl_server, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jcombox_server, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jcombox_vuls, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jcombox_vuls, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lbl_url)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txt_url, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txt_url)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jbtn_start, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -528,7 +526,6 @@ public class Main extends javax.swing.JFrame {
                     .addComponent(jbtn_start, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbtn_clearLog)
                     .addComponent(txt_url, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jcombox_server, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbl_server))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jTabbedPane2)
@@ -563,20 +560,18 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtn_startActionPerformed
     private void dispatch(char method){
      String url=this.txt_url.getText();
-        String webServer=this.jcombox_server.getSelectedItem().toString();
-        String vulName=this.jcombox_vuls.getSelectedItem().toString();
-        BasePayload bp=null;
+     String vulName=this.jcombox_vuls.getSelectedItem().toString();
+       
         try {
-            if("Weblogic".equals(webServer)){
-            if(vulName.startsWith("CVE-2017-10271")){
-                bp=new CVE_2017_10271();
+           
+                 BasePayload bp=Tools.getPayload(vulName);
                 switch(method){
                     case 'c':
                         boolean isVul=bp.checkVUL(url);
                         if(isVul){
                             log(url+"存在漏洞！");
                             String path=bp.getWebPath(url);
-                            log("当前应用目录："+path);
+                            log("当前应用目录："+path.replace("\\", "/"));
                             JOptionPane.showMessageDialog(null, "存在漏洞", "漏洞验证结果", JOptionPane.ERROR_MESSAGE); 
                         }
                         else{
@@ -590,14 +585,14 @@ public class Main extends javax.swing.JFrame {
                         
                         break;
                     case 'u':
-                        boolean isUpload=bp.uploadFile(url,this.jtxt_fileContent.getText(),this.jtxt_filepath.getText(),this.jcheckBox_use_user_path.isSelected());
-                        if(isUpload){
-                            log(url+"上传完成！");
+                        String path=bp.uploadFile(url,this.jtxt_fileContent.getText(),this.jtxt_filepath.getText(),this.jcheckBox_use_user_path.isSelected());
+                        if(!"".equals(path)){
+                            log(url+"上传完成！，请人工核查是否成功，地址："+path);
                             JOptionPane.showMessageDialog(null, "上传完成！", "上传结果", JOptionPane.INFORMATION_MESSAGE); 
                         }
                         else{
                             log(url+"上传失败！");
-                            JOptionPane.showMessageDialog(null, "上传完成！", "上传结果", JOptionPane.INFORMATION_MESSAGE); 
+                            JOptionPane.showMessageDialog(null, "上传失败！", "上传结果", JOptionPane.INFORMATION_MESSAGE); 
                         }
                         break;
                       case 'b':
@@ -610,17 +605,19 @@ public class Main extends javax.swing.JFrame {
                                     
                                 }
                          });
+                          BasePayload bpp=new CVE_2019_2725_12();
                          batch_startWork=new SwingWorker<Void, Void>() {  
                                 @Override  
                                 protected Void doInBackground() throws Exception {
                                     int index=0;
                                     for(String curl : list_check) {
-                                    CVE_2017_10271_Check cc=new CVE_2017_10271_Check();
-                                    cc.table=jtable_batch_check_result;
+                                    BaseCheck bc=new BaseCheck();
+                                    bc.table=jtable_batch_check_result;
                                     index++;
-                                    cc.index=index;
-                                    cc.url=curl;
-                                    es.execute(cc); 
+                                    bc.index=index;
+                                    bc.url=curl;
+                                    bc.init(bp);
+                                    es.execute(bc); 
                                 }
                                    es.shutdown();  
                                     while(!es.isTerminated()){
@@ -655,15 +652,8 @@ public class Main extends javax.swing.JFrame {
                         break;
                 }
                 
-            }
-            else{
             
-            }
-        }
-        else{
-            
-        }
-            
+          
         } catch (Exception e) {
             log(e.getMessage());
         }
@@ -702,13 +692,15 @@ public class Main extends javax.swing.JFrame {
         }
         this.jbtn_execmd.setEnabled(true);
     }//GEN-LAST:event_jbtn_execmdActionPerformed
-    private int version=20171231;
-    private String versionURL="http://www.shack2.org/soft/javaserializetools/version.txt";
+    private static final int  version=20190731;
+    private static String sid="V:public"+"--OS:"+System.getProperty("os.name")+"--Serial:"+DiskUtil.getSerialNumber("C")+"--CPU:"+DiskUtil.GetCpuID()+"--Motherboard:"+DiskUtil.getMotherboardSN()+"--Mac:"+DiskUtil.GetMac();
+    private static String versionURL="http://www.shack2.org/soft/getNewVersion?ENNAME=javaserializetools&NO=" + URLEncoder.encode(sid) + "&VERSION=" + version;
     public void checkUpdate()
         {
             try
             {
-                String[] result = HttpTool.postHttpReuest(versionURL,"","UTF-8").split("-");
+                
+                String[] result = HttpTool.getHttpReuest(versionURL,"UTF-8").split("-");
                 String versionText = result[0];
                 int cversion =Integer.parseInt(result[1]);
                 String versionUpdateURL = result[2];
@@ -752,7 +744,7 @@ public class Main extends javax.swing.JFrame {
             }
         }
     private void jmenu_aboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmenu_aboutActionPerformed
-        JOptionPane.showMessageDialog(null, "本工具提供给安全测试人员，安全工程师，进行安全自查使用，请勿非法使用！\r\n版本：V 1.0 "+version+"\r\nBug反馈：1341413415@qq.com", "关于", JOptionPane.INFORMATION_MESSAGE); 
+        JOptionPane.showMessageDialog(null, "本工具提供给安全测试人员，安全工程师，进行安全自查使用，请勿非法使用！\r\n版本：V 1.3 "+version+"\r\nBug反馈：1341413415@qq.com", "关于", JOptionPane.INFORMATION_MESSAGE); 
     }//GEN-LAST:event_jmenu_aboutActionPerformed
 
     private void jmenu_checkUpdataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmenu_checkUpdataActionPerformed
@@ -851,6 +843,7 @@ public class Main extends javax.swing.JFrame {
                 osw = new OutputStreamWriter(new FileOutputStream(file),"UTF-8");	
 		bw=new BufferedWriter(osw);	
                  DefaultTableModel dt=(DefaultTableModel)jtable_batch_check_result.getModel();
+                
                  Vector<Vector> data=dt.getDataVector();
                  for(Vector v :data ){
                      StringBuffer sb=new StringBuffer();
@@ -952,7 +945,6 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JCheckBox jcheckBox_use_user_path;
     private javax.swing.JComboBox<String> jcombox_cmd;
     private javax.swing.JComboBox<String> jcombox_encoding;
-    private javax.swing.JComboBox<String> jcombox_server;
     private javax.swing.JComboBox<String> jcombox_vuls;
     private javax.swing.JLabel jlabel_check_status;
     private javax.swing.JLabel jlable_useTime;

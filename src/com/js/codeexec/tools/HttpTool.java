@@ -16,6 +16,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -27,6 +28,93 @@ public class HttpTool {
     private static int Timeout=10000;
     private static String DefalutEncoding="UTF-8";
     public static String httpRequest(String requestUrl,int timeOut,String requestMethod,String contentType, String postString,String encoding) throws Exception{
+        if("".equals(encoding)||encoding==null){
+            encoding=DefalutEncoding;
+        }
+        HttpURLConnection httpUrlConn=null;
+        InputStream inputStream=null;
+        BufferedInputStream bis=null;
+        ByteArrayOutputStream baos=null;
+        try {    
+            URL url = new URL(requestUrl);    
+            httpUrlConn = (HttpURLConnection) url.openConnection();    
+            httpUrlConn.setReadTimeout(timeOut);
+            if(contentType!=null&&!"".equals(contentType)){
+                 httpUrlConn.setRequestProperty("Content-Type", contentType);
+            }
+            httpUrlConn.setRequestProperty("User-Agent","Mozilla/5.0 (compatible; Baiduspider/2.0; +http://www.baidu.com/search/spider.html）");
+            httpUrlConn.setDoOutput(true);    
+            httpUrlConn.setDoInput(true);        
+            // 设置请求方式（GET/POST）    
+            httpUrlConn.setRequestMethod(requestMethod);    
+    
+            httpUrlConn.connect();    
+    
+            // 当有数据需要提交时    
+            if (null != postString&&!"".equals(postString)) {    
+                OutputStream outputStream = httpUrlConn.getOutputStream();    
+                // 注意编码格式，防止中文乱码    
+                outputStream.write(postString.getBytes(encoding));    
+                outputStream.close();    
+            }
+            // 将返回的输入流转换成字符串    
+            inputStream = httpUrlConn.getInputStream();    
+            bis = new BufferedInputStream(inputStream);
+            baos = new ByteArrayOutputStream();
+            int len;
+            byte[] arr = new byte[4096];
+            
+            while((len=bis.read(arr))!= -1){
+                baos.write(arr,0,len);
+                baos.flush();
+            }
+            String res=baos.toString(encoding);
+            return res;
+        } catch (IOException e) {    
+            // 将返回的输入流转换成字符串    
+            inputStream = httpUrlConn.getErrorStream();    
+            bis = new BufferedInputStream(inputStream);
+            baos = new ByteArrayOutputStream();
+            int len;
+            byte[] arr = new byte[4096];
+            while((len=bis.read(arr))!= -1){
+                baos.write(arr,0,len);
+                baos.flush();
+            }
+            String res=baos.toString(encoding);
+            return res;
+        }catch (Exception e) {    
+            throw e;
+        }finally{
+            if(baos!=null){
+                baos.close();
+            }
+            if(bis!=null){
+                bis.close();
+            }
+            if(inputStream!=null){
+                inputStream.close();
+            }
+            if(httpUrlConn!=null){
+                httpUrlConn.disconnect();
+            }
+        } 
+        
+    }
+    
+    /**
+     *
+     * @param requestUrl
+     * @param timeOut
+     * @param requestMethod
+     * @param contentType
+     * @param postString
+     * @param encoding
+     * @param headers
+     * @return
+     * @throws Exception
+     */
+    public static String httpRequestAddHeader(String requestUrl,int timeOut,String requestMethod,String contentType, String postString,String encoding,HashMap<String,String> headers) throws Exception{
         if("".equals(encoding)||encoding==null){
             encoding=DefalutEncoding;
         }
@@ -43,6 +131,13 @@ public class HttpTool {
                  httpUrlConn.setRequestProperty("Content-Type", contentType);
             }
             httpUrlConn.setRequestProperty("User-Agent","Mozilla/5.0 (compatible; Baiduspider/2.0; +http://www.baidu.com/search/spider.html）");
+            if(headers!=null){
+                for(String key:headers.keySet()){
+                    String val=headers.get(key);
+                    httpUrlConn.addRequestProperty(key, val);
+                }
+             }
+            
             httpUrlConn.setDoOutput(true);    
             httpUrlConn.setDoInput(true);        
             // 设置请求方式（GET/POST）    
@@ -183,11 +278,19 @@ public class HttpTool {
         return httpRequest(requestUrl,Timeout,"POST","application/x-www-form-urlencoded",postString,encoding);
     }
     
+    public static String getHttpReuest(String requestUrl,String encoding) throws Exception{  
+        return httpRequest(requestUrl,Timeout,"GET","text/html","",encoding);
+    }
+    
     public static String postHttpReuestByXML(String requestUrl,int timeOut,String postString,String encoding) throws Exception{  
         return httpRequest(requestUrl,timeOut,"POST","text/xml",postString,encoding);
     }
     public static String postHttpReuestByXML(String requestUrl,String postString,String encoding) throws Exception{  
         return httpRequest(requestUrl,Timeout,"POST","text/xml",postString,encoding);
+    }
+    
+    public static String postHttpReuestByXMLAddHeader(String requestUrl,String postString,String encoding,HashMap<String,String> headers) throws Exception{  
+        return httpRequestAddHeader(requestUrl,Timeout,"POST","text/xml",postString,encoding,headers);
     }
     
     public static int codeByHttpRequest(String requestUrl,String method,String contentType,String postString,String encoding) throws Exception{  

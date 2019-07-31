@@ -14,6 +14,6 @@ public interface BasePayload {
     boolean  checkVUL(String url) throws Exception;
     String exeCMD(String url,String cmd,String encoding) throws Exception;
     String getWebPath(String url) throws Exception;
-    boolean uploadFile(String url,String fileContent,String fileName,boolean useUserPath) throws Exception;
+    String uploadFile(String url,String fileContent,String fileName,boolean useUserPath) throws Exception;
 
 }

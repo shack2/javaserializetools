@@ -7,7 +7,8 @@ package com.js.codeexec.paylaod.BatchCheck;
 
 
 import com.js.codeexec.frame.Main;
-import com.js.codeexec.paylaod.CVE_2017_10271;
+import com.js.codeexec.paylaod.BasePayload;
+import com.js.codeexec.paylaod.CVE_2017_10271_12;
 import java.awt.EventQueue;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -16,17 +17,18 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author shack2
  */
-public class CVE_2017_10271_Check implements Runnable {
+public class BaseCheck implements Runnable {
     public int index=0;
      public String url="";
      public JTable table=null;
-       
+     public BasePayload bp=null;
+     public void init(BasePayload bp){
+         this.bp=bp;
+     }
     @Override
     public void run() {
         try {
-            
-            CVE_2017_10271 cc=new CVE_2017_10271();
-            boolean isOk=cc.checkVUL(url);
+            boolean isOk=bp.checkVUL(url);
             if(isOk){
                  EventQueue.invokeLater(new Runnable() {
                         @Override

