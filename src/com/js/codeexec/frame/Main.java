@@ -718,7 +718,8 @@ public class Main extends javax.swing.JFrame {
                                 String path=System.getProperty("user.dir");
                                 String surl=versionUpdateURL.substring(0,lindex+1);
                                 String fileName=versionUpdateURL.substring(lindex+1);
-                                isok=HttpTool.downloadFile(surl+fileName, path+"/"+fileName);
+                                
+                                isok=HttpTool.downloadFile(surl+URLEncoder.encode(fileName, "UTF-8"), path+"/"+fileName);
                             }
                             
                             if(isok){

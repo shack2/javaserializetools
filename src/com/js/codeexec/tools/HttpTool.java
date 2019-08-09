@@ -420,8 +420,6 @@ public class HttpTool {
             httpURLConnection = (HttpURLConnection) url.openConnection();
             // 设定请求的方法，默认是GET
             httpURLConnection.setRequestMethod("GET");
-            // 设置字符编码
-            httpURLConnection.setRequestProperty("Charset", "UTF-8");
             // 打开到此 URL 引用的资源的通信链接（如果尚未建立这样的连接）。
             httpURLConnection.connect();
 
