@@ -155,7 +155,7 @@ public class Main extends javax.swing.JFrame {
         jPopupMenu1.add(jmenu_c_del_select_rows);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Java反序列化漏洞利用工具V1.5 by shack2");
+        setTitle("Java反序列化漏洞利用工具V1.6 by shack2");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setName("mainFrame"); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -182,7 +182,7 @@ public class Main extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jtxtp_info.setText("2017-12-30：V1.0\n添加 weblogic xml反序列化漏洞 CVE-2017-10271\n\nV1.1\n修复CVE-2017-10271只能测试Weblogic10.*版本的问题。\n增加CNVD-C-2019-48814/CVE-2019-2725 Weblogic 10.*,Weblogic 12.*的支持。\n\nV1.2\n修复CNVD-C-2019-48814/CVE-2019-2725 在Weblogic 10下误报的问题。\n\n2019-06-17：V1.3\n优化EXP，验证完删除验证生成的文件，服务器不留文件。\n增加CNVD-C-2019-48814/CVE-2019-2725，在Weblogic 10下绕过利用方法。\n\n2019-07-31：V1.4\n修复CVE-2017-10271无法验证的漏洞的bug。\n\n2019-08-09：V1.5\n修复部分情况无法访问https页面问题，修复部分情况获取web路径显示不全问题。");
+        jtxtp_info.setText("2017-12-30：V1.0\n添加 weblogic xml反序列化漏洞 CVE-2017-10271\n\nV1.1\n修复CVE-2017-10271只能测试Weblogic10.*版本的问题。\n增加CNVD-C-2019-48814/CVE-2019-2725 Weblogic 10.*,Weblogic 12.*的支持。\n\nV1.2\n修复CNVD-C-2019-48814/CVE-2019-2725 在Weblogic 10下误报的问题。\n\n2019-06-17：V1.3\n优化EXP，验证完删除验证生成的文件，服务器不留文件。\n增加CNVD-C-2019-48814/CVE-2019-2725，在Weblogic 10下绕过利用方法。\n\n2019-07-31：V1.4\n修复CVE-2017-10271无法验证的漏洞的bug。\n\n2019-08-09：V1.5\n修复部分情况无法访问https页面问题，修复部分情况获取web路径显示不全问题。\n\n2019-08-14：V1.6\n修复CNVD-C-2019-48814/CVE-2019-2725误报问题，默认全return true了。");
         jScrollPane2.setViewportView(jtxtp_info);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -692,7 +692,7 @@ public class Main extends javax.swing.JFrame {
         }
         this.jbtn_execmd.setEnabled(true);
     }//GEN-LAST:event_jbtn_execmdActionPerformed
-    private static final int  version=20190809;
+    private static final int  version=20190814;
     private static String sid="V:public"+"--OS:"+System.getProperty("os.name")+"--Serial:"+DiskUtil.getSerialNumber("C")+"--CPU:"+DiskUtil.GetCpuID()+"--Motherboard:"+DiskUtil.getMotherboardSN()+"--Mac:"+DiskUtil.GetMac();
     private static String versionURL="http://www.shack2.org/soft/getNewVersion?ENNAME=javaserializetools&NO=" + URLEncoder.encode(sid) + "&VERSION=" + version;
     public void checkUpdate()
@@ -745,7 +745,7 @@ public class Main extends javax.swing.JFrame {
             }
         }
     private void jmenu_aboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmenu_aboutActionPerformed
-        JOptionPane.showMessageDialog(null, "本工具提供给安全测试人员，安全工程师，进行安全自查使用，请勿非法使用！\r\n版本：V 1.5 "+version+"\r\nBug反馈：1341413415@qq.com", "关于", JOptionPane.INFORMATION_MESSAGE); 
+        JOptionPane.showMessageDialog(null, "本工具提供给安全测试人员，安全工程师，进行安全自查使用，请勿非法使用！\r\n版本：V 1.6 "+version+"\r\nBug反馈：1341413415@qq.com", "关于", JOptionPane.INFORMATION_MESSAGE); 
     }//GEN-LAST:event_jmenu_aboutActionPerformed
 
     private void jmenu_checkUpdataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmenu_checkUpdataActionPerformed

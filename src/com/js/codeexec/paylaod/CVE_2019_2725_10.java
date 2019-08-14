@@ -54,7 +54,7 @@ public class CVE_2019_2725_10 implements BasePayload {
         } catch (Exception e) {
            throw e;
         }
-        return true;
+        return false;
         
     }
 
